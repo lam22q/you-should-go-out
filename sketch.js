@@ -1,15 +1,15 @@
-let gameState = "intro"; 
+let gameState = "intro";
 let img, img2, img3;
 
 function preload() {
   img = loadImage('assets/resizedimage1.jpg');
   img2 = loadImage('assets/resizedimage2.jpg');
   img3 = loadImage('assets/upclosethought.jpg');
-  img4 = loadImage ('assets/gettingdressed.jpg');
-  img5 = loadImage ('assets/maintalking.jpg');
-  img6 = loadImage ('assets/placeholder1jpg.webp');
-  img7 = loadImage ('assets/placeholder2.webp');
-  img8 = loadImage ('assets/placeholder3.jpeg');
+  img4 = loadImage('assets/gettingdressed.jpg');
+  img5 = loadImage('assets/maintalking.jpg');
+  img6 = loadImage('assets/placeholder1jpg.webp');
+  img7 = loadImage('assets/placeholder2.webp');
+  img8 = loadImage('assets/placeholder3.jpeg');
 }
 
 function setup() {
@@ -65,9 +65,6 @@ function displayIntro() {
   text("Welcome to Your Butterfly Effect Game!", width / 2, height / 2 - 50);
   text("Click to begin your journey...", width / 2, height / 2);
 
-  if (mouseIsPressed) {
-    gameState = "choice1";
-  }
 }
 
 // First choice scene
@@ -108,9 +105,6 @@ function displayGettingReady() {
   fill(0);
   text("Click to continue to the gallery...", width / 2, height / 2 + 100);
 
-  if (mouseIsPressed) {
-    gameState = "gallery1";
-  }
 }
 
 // Outcome B: Voicemail
@@ -224,25 +218,29 @@ function drawButton(x, y, w, h, label) {
 }
 
 function mousePressed() {
-  if (gameState === "choice1") {
-    if (mouseInRect(50, 150, 200, 50)) {
-      gameState = "outcomeA";
-    } else if (mouseInRect(300, 150, 250, 50)) {
-      gameState = "outcomeB";
-    }
-  } else if (gameState === "outcomeA") {
-    if (mouseInRect(50, 400, 200, 50)) {
-      gameState = "gettingReady";
-    } else if (mouseInRect(300, 400, 250, 50)) {
-      gameState = "reflect";
-    }
-  } else if (gameState === "reflect") {
-    if (mouseInRect(50, 400, 200, 50)) {
-      gameState = "gameOver";
-    } else if (mouseInRect(300, 400, 250, 50)) {
+  switch (gameState) {
+    case "intro":
+      gameState = "choice1";
+      break;
+    case "choice1":
+      if (mouseInRect(50, 150, 200, 50)) {
+        gameState = "outcomeA";
+      } else if (mouseInRect(300, 150, 250, 50)) {
+        gameState = "outcomeB";
+      }
+      break;
+    case "reflect":
+      if (mouseInRect(50, 400, 200, 50)) {
+        gameState = "gameOver";
+      } else if (mouseInRect(300, 400, 250, 50)) {
+        gameState = "gallery1";
+      }
+      break;
+    case "gettingReady":
       gameState = "gallery1";
-    }
+      break;
   }
+
 }
 
 function mouseInRect(x, y, w, h) {
