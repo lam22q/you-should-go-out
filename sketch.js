@@ -113,11 +113,8 @@ function displayOutcomeB() {
   textSize(24);
   textAlign(CENTER);
   fill(0);
-  text("You decide to let the call go to voicemail. Maybe it's not important...", width / 2, height / 2);
+  text("Maybe it's not important...", width / 2, height / 2);
 
-  if (mouseIsPressed) {
-    gameState = "reflect";
-  }
 }
 
 // Reflection Scene
@@ -127,7 +124,7 @@ function displayReflection() {
   textAlign(LEFT);
   fill(0);
   text(
-    "You sit at home and think about the call. Should you have answered? Maybe it’s better to stay home, but the thought lingers...",
+    "Should I have answered? Maybe it’s better to stay home, but the thought lingers... I dont want it to be awkward, I dont know anyone. I could introduce myself to people? What If I make new friends!",
     50,
     100,
     700
@@ -143,10 +140,9 @@ function displayGameOver() {
   textSize(28);
   textAlign(CENTER);
   fill(255);
-  text("You stayed home. Maybe next time...", width / 2, height / 2);
+  text("Maybe next time...", width / 2, height / 2);
   text("Click to play again.", width / 2, height / 2 + 50);
 
-  if (mouseIsPressed) resetGame();
 }
 
 // Gallery Scenes
@@ -161,7 +157,7 @@ function displayGalleryScene1() {
     height / 2
   );
 
-  if (mouseIsPressed) gameState = "gallery2";
+  
 }
 
 function displayGalleryScene2() {
@@ -170,12 +166,11 @@ function displayGalleryScene2() {
   textAlign(CENTER);
   fill(0);
   text(
-    "Hey! I am so glad that you came, I wanted to tell you about this art recidency in colorado I think you should apply for",
+    "Hey! I am so glad that you came, I wanted to tell you about this art recidency in Colorado I think you should apply for",
     width / 2,
     height / 2
   );
 
-  if (mouseIsPressed) gameState = "gallery3";
 }
 
 function displayGalleryScene3() {
@@ -184,12 +179,12 @@ function displayGalleryScene3() {
   textAlign(CENTER);
   fill(0);
   text(
-    "Artist: Thank you for coming. This piece is inspired by my travels to Kyoto. I wanted to capture the serenity of the temples.",
+    "Artist: Thank you for coming. This piece is inspired by my travels to Kyoto. I wanted to capture the serenity of the temples. It is so important to put yourself out there! Make sure to take every oppuntinity, experiences like these are what inspires us",
     width / 2,
     height / 2
   );
 
-  if (mouseIsPressed) gameState = "galleryFinal";
+  
 }
 
 function displayGalleryFinalScene() {
@@ -198,13 +193,12 @@ function displayGalleryFinalScene() {
   textAlign(CENTER);
   fill(255);
   text(
-    "As the evening ends you're glad you said yes, you made memories and it unlocked new oppuntunities you never knew where possible!",
+    "As the evening ends you're glad you said yes, you made memories and it unlocked new oppuntunities you never knew where possible! ",
     width / 2,
     height / 2 - 50
   );
   text("Click to play again.", width / 2, height / 2 + 50);
 
-  if (mouseIsPressed) resetGame();
 }
 
 // Button Helper
@@ -222,31 +216,60 @@ function mousePressed() {
     case "intro":
       gameState = "choice1";
       break;
+
     case "choice1":
       if (mouseInRect(50, 150, 200, 50)) {
-        gameState = "outcomeA";
+        gameState = "outcomeA"; // Choosing Option A
       } else if (mouseInRect(300, 150, 250, 50)) {
-        gameState = "outcomeB";
+        gameState = "outcomeB"; // Choosing Option B
       }
       break;
+
+    case "outcomeA":
+      gameState = "gettingReady";
+      break;
+
+    case "outcomeB":
+      gameState = "gameOver"; // Outcome B transitions to Game Over directly
+      break;
+
     case "reflect":
       if (mouseInRect(50, 400, 200, 50)) {
-        gameState = "gameOver";
+        gameState = "gameOver"; // Choosing "Move On" goes to Game Over
       } else if (mouseInRect(300, 400, 250, 50)) {
-        gameState = "gallery1";
+        gameState = "outcomeB"; // Choosing "Dwell on It" leads to Outcome B
       }
       break;
+
     case "gettingReady":
       gameState = "gallery1";
       break;
+
+    case "gallery1":
+      gameState = "gallery2";
+      break;
+
+    case "gallery2":
+      gameState = "gallery3";
+      break;
+
+    case "gallery3":
+      gameState = "galleryFinal";
+      break;
+
+    case "galleryFinal":
+    case "gameOver":
+      resetGame();
+      break;
   }
-
 }
 
-function mouseInRect(x, y, w, h) {
-  return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
-}
-
+// Reset the game
 function resetGame() {
   gameState = "intro";
+}
+
+// Check if the mouse is inside a rectangle
+function mouseInRect(x, y, w, h) {
+  return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
 }
