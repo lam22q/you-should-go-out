@@ -1,5 +1,9 @@
 let gameState = "intro";
-let img, img2, img3;
+let img, img2, img3, img4, img5, img6, img7, img8;
+let font;
+let ringsound;
+let jazzsound; 
+let isRinging = false;
 
 function preload() {
   img = loadImage('assets/resizedimage1.jpg');
@@ -10,6 +14,9 @@ function preload() {
   img6 = loadImage('assets/placeholder1jpg.webp');
   img7 = loadImage('assets/placeholder2.webp');
   img8 = loadImage('assets/placeholder3.jpeg');
+  font = loadFont('assets/Comicbon-personaluse.ttf')
+  ringsound = loadSound('assets/ringingsounds.wav')
+  jazzsound = loadSound('assets/jazzsounds.mp3')
 }
 
 function setup() {
@@ -59,146 +66,133 @@ function draw() {
 
 // Intro Scene
 function displayIntro() {
+  textFont(font)
   textSize(24);
   textAlign(CENTER);
   fill(0);
-  text("Welcome to Your Butterfly Effect Game!", width / 2, height / 2 - 50);
-  text("Click to begin your journey...", width / 2, height / 2);
+  text("WELCOME TO YOUR BUTTERFLY EFFECT GAME", width / 2, height / 2 - 50);
+  text("CLICK TO BEGIN YOUR JOUNREY", width / 2, height / 2);
 
 }
 
 // First choice scene
 function displayChoice1() {
   background(img);
-  textSize(20);
-  textAlign(LEFT);
-  fill(0);
-  text("My friend is calling! I wonder what she wants?", 50, 100);
 
-  drawButton(50, 150, 200, 50, "Pick up phone");
-  drawButton(300, 150, 250, 50, "Let it go to voicemail");
+  // Draw the text bubble in the bottom-right corner
+  drawTextBubble(
+    "MY FRIEND IS CALLING I WONDER WHAT SHE WANTS",
+    width - 480, // Position the bubble near the right edge
+    height - 140, // Position the bubble slightly above the bottom
+    460,         // Width of the bubble
+    100          // Height of the bubble
+  );
+
+  // Draw buttons for player choices
+  drawButton(50, 150, 200, 50, "PICK UP THE PHONE");
+  drawButton(300, 150, 250, 50, "LET IT GO TO VOICEMAIL");
 }
-
 // Outcome A: Friend invites you to the gallery
 function displayOutcomeA() {
   background(img2);
-  textSize(24);
-  textAlign(CENTER);
-  fill(0);
-  text("Hey... I'm going to my friend's gallery opening tonight. Would you like to join?", width / 2, height / 2);
-
-  drawButton(50, 400, 200, 50, "Sure, let's go!");
-  drawButton(300, 400, 250, 50, "Not tonight...");
+  drawTextBubble(
+    "HEY IM GOING TO MY FRIENDS GALLERY TONIGHT WOULD YOU LIKE TO JOIN?",
+    20,
+    height - 140,
+    760,
+    120);
+  drawButton(50, 400, 200, 50, "SURE LETS GO");
+  drawButton(300, 400, 250, 50, "NOT TONIGHT");
 }
 
 // Getting Ready Scene
 function displayGettingReady() {
   background(img4);
-  textSize(24);
-  textAlign(CENTER);
-  fill(0);
-  text("You decide to go out and start getting ready.", width / 2, height / 2 - 50);
-  text("You pick out an outfit, fix your hair, and prepare to leave.", width / 2, height / 2);
-
-  textSize(20);
-  textAlign(CENTER);
-  fill(0);
-  text("Click to continue to the gallery...", width / 2, height / 2 + 100);
-
+  drawTextBubble(
+    "YOU DECIDE TO GO OUT AND START TO GET READY YOU PICK OUT AN OUTFIT FIX YOUR HAIR AND PREPARE TO LEAVE",
+    20,
+    height - 140,
+    760,
+    120);
 }
 
 // Outcome B: Voicemail
 function displayOutcomeB() {
   background(img3);
-  textSize(24);
-  textAlign(CENTER);
-  fill(0);
-  text("Maybe it's not important...", width / 2, height / 2);
-
+  drawTextBubble(
+    "MAYBE IT WASNT IMPORTANT",
+    20,
+    height - 140,
+    760,
+    120);
 }
 
 // Reflection Scene
 function displayReflection() {
   background(img3);
-  textSize(20);
-  textAlign(LEFT);
-  fill(0);
-  text(
-    "Should I have answered? Maybe it’s better to stay home, but the thought lingers... I dont want it to be awkward, I dont know anyone. I could introduce myself to people? What If I make new friends!",
-    50,
-    100,
-    700
-  );
-
-  drawButton(50, 400, 200, 50, "Dwell on it");
-  drawButton(300, 400, 250, 50, "Call her back");
+  drawTextBubble(
+    "SHOULD I HAVE ANSWERED? MAYBE ITS BETTER TO STAY HOME BUT THE THOUGHT LINGERS IT MIGHT BE AWKWARD IF I DONT KNOW ANYONE SHOULD I INTRODUCE MYSELF? WHAT IF I MAKE NEW FRIENDS?",
+    20,
+    height - 140,
+    760,
+    120);
+  drawButton(50, 400, 200, 50, "DWELL ON IT");
+  drawButton(300, 400, 250, 50, "CALL HER BACK");
 }
 
 // Game Over Scene
 function displayGameOver() {
   background(img3);
-  textSize(28);
-  textAlign(CENTER);
-  fill(255);
-  text("Maybe next time...", width / 2, height / 2);
-  text("Click to play again.", width / 2, height / 2 + 50);
-
+  drawTextBubble(
+    "MAYBE NEXT TIME CLICK TO PLAY AGAIN",
+    20,
+    height - 140,
+    760,
+    120);
 }
 
 // Gallery Scenes
 function displayGalleryScene1() {
   background(img5);
-  textSize(24);
-  textAlign(CENTER);
-  fill(0);
-  text(
-    "This gallery is incredible! Look at that abstract painting over there—it’s mesmerizing.",
-    width / 2,
-    height / 2
-  );
-
-  
+  drawTextBubble(
+    "THIS GALLERY IS INCREDIBLE LOOK AT THAT PAINTING OVER THERE ITS MESMERIZING",
+    20,
+    height - 140,
+    760,
+    120);
 }
 
 function displayGalleryScene2() {
   background(img6);
-  textSize(24);
-  textAlign(CENTER);
-  fill(0);
-  text(
-    "Hey! I am so glad that you came, I wanted to tell you about this art recidency in Colorado I think you should apply for",
-    width / 2,
-    height / 2
-  );
-
+  drawTextBubble(
+    "HEY IM SO GLAD YOU CAME I WANTED TO TELL YOU ABOUT AN ART RESIDENCY IN COLORADO I THINK YOU SHOULD APPLY FOR IT",
+    20,
+    height - 140,
+    760,
+    120);
 }
 
 function displayGalleryScene3() {
   background(255, 200, 200);
-  textSize(24);
-  textAlign(CENTER);
-  fill(0);
-  text(
-    "Artist: Thank you for coming. This piece is inspired by my travels to Kyoto. I wanted to capture the serenity of the temples. It is so important to put yourself out there! Make sure to take every oppuntinity, experiences like these are what inspires us",
-    width / 2,
-    height / 2
-  );
-
-  
+  drawTextBubble("THANK YOU FOR COMING THIS PIECE WAS INSPIRED BY MY TRAVELS TO KYOTO I WANTED TO CAPTURE THE SERENITY OF THE TEMPLES EXPERIENCES LIKE THESE INSPIRE US",20,height - 140,760, 120);
 }
 
 function displayGalleryFinalScene() {
   background(50, 50, 100);
-  textSize(28);
-  textAlign(CENTER);
-  fill(255);
-  text(
-    "As the evening ends you're glad you said yes, you made memories and it unlocked new oppuntunities you never knew where possible! ",
-    width / 2,
-    height / 2 - 50
-  );
-  text("Click to play again.", width / 2, height / 2 + 50);
+  drawTextBubble(
+    "AS THE EVENING ENDS YOURE GLAD YOU SAID YES IT UNLOCKED OPPORTUNITIES YOU NEVER KNEW WERE POSSIBLE CLICK TO PLAY AGAIN",20,height - 140,760, 120);
+}
 
+// Reusable Text Bubble Function
+function drawTextBubble(textContent, x, y, w, h) {
+  fill(255, 240, 200); // Light yellow background for the bubble
+  stroke(0); // Black border
+  rect(x, y, w, h, 10); // Rounded rectangle
+  fill(0); // Black text
+  textFont(font);
+  textSize(18);
+  textAlign(LEFT, TOP);
+  text(textContent, x + 10, y + 10, w - 20, h - 20); // Padding inside the bubble
 }
 
 // Button Helper
@@ -206,6 +200,7 @@ function drawButton(x, y, w, h, label) {
   fill(200);
   rect(x, y, w, h);
   fill(0);
+  textFont(font);
   textSize(16);
   textAlign(CENTER, CENTER);
   text(label, x + w / 2, y + h / 2);
@@ -219,14 +214,18 @@ function mousePressed() {
 
     case "choice1":
       if (mouseInRect(50, 150, 200, 50)) {
-        gameState = "outcomeA"; // Choosing Option A
+        gameState = "outcomeA"; // Choosing "PICK UP THE PHONE"
       } else if (mouseInRect(300, 150, 250, 50)) {
-        gameState = "outcomeB"; // Choosing Option B
+        gameState = "outcomeB"; // Choosing "LET IT GO TO VOICEMAIL"
       }
       break;
 
     case "outcomeA":
-      gameState = "gettingReady";
+      if (mouseInRect(50, 400, 200, 50)) {
+        gameState = "gettingReady"; // Choosing "SURE LETS GO"
+      } else if (mouseInRect(300, 400, 250, 50)) {
+        gameState = "reflect"; // Choosing "NOT TONIGHT"
+      }
       break;
 
     case "outcomeB":
@@ -235,9 +234,9 @@ function mousePressed() {
 
     case "reflect":
       if (mouseInRect(50, 400, 200, 50)) {
-        gameState = "gameOver"; // Choosing "Move On" goes to Game Over
+        gameState = "gameOver"; // Choosing "DWELL ON IT" goes to Game Over
       } else if (mouseInRect(300, 400, 250, 50)) {
-        gameState = "outcomeB"; // Choosing "Dwell on It" leads to Outcome B
+        gameState = "gettingReady"; // Choosing "CALL HER BACK" goes to Getting Ready
       }
       break;
 
@@ -263,6 +262,7 @@ function mousePressed() {
       break;
   }
 }
+
 
 // Reset the game
 function resetGame() {
